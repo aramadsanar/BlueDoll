@@ -4,37 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".RegisterActivity"
     android:orientation="vertical"
-    android:layout_margin="16dp">
+    android:layout_margin="8dp">
 
     <EditText
-        android:id="@+id/editEmailAddress"
+        android:id="@+id/register_editName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Email Address"
-        />
-
+        android:layout_height="wrap_content" />
     <EditText
-        android:id="@+id/editPassword"
+        android:id="@+id/register_editEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:layout_marginTop="8dp"
-        android:hint="Password"/>
-
-    <Button
-        android:id="@+id/btnLogin"
+        android:inputType="textEmailAddress"/>
+    <EditText
+        android:id="@+id/register_editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOGIN"/>
-
+        android:inputType="textPassword"/>
+    <EditText
+        android:id="@+id/register_editConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"/>
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/register_btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="REGISTER"/>
-
-
 </LinearLayout>
