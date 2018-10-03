@@ -15,6 +15,48 @@ public class RegisterActivity extends AppCompatActivity {
     EditText register_editPassword;
     EditText register_editConfirmPassword;
     Button register_btnRegister;
+
+    private boolean validateRegistration(String name, String email, String password, String confirmPassword) {
+        boolean isNameValid = validateName(name);
+        boolean isEmailValid = validateEmail(email);
+        boolean isPasswordValid = validatePassword(password, confirmPassword);
+        boolean emailExists = checkForEmailExistence(email);
+
+
+        return (isNameValid && isEmailValid && isPasswordValid && !emailExists);
+    }
+
+    private boolean checkForEmailExistence(String email) {
+        for (User u : AppDatabase.users) {
+            if (u.email.equals(email)) return false;
+        }
+        return true;
+    }
+
+    private boolean validatePassword(String password, String confirmPassword) {
+        return (
+            password.length() >= 6 &&
+            password.matches("([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*") &&
+            password.equals(confirmPassword)
+        );
+    }
+
+    private boolean validateEmail(String email) {
+        String[] splitAt = email.split("@");
+        if (splitAt.length != 2) return false;
+
+        String[] splitDomain = splitAt[1].split(".");
+        if (splitAt.length < 2) return false;
+
+        return true;
+    }
+
+    private boolean validateName(String name) {
+        return (name.length() > 0) ? true : false;
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +77,19 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailAddress = register_editEmail.getText().toString();
                 String password = register_editPassword.getText().toString();
                 String confirmPassword = register_editConfirmPassword.getText().toString();
-                AppDatabase.users.add(new User(AppDatabase.userCount++, name, emailAddress, password));;
-                Toast.makeText(RegisterActivity.this, "Register succeded", Toast.LENGTH_SHORT).show();
-                finish();
+
+                //boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password);
+                boolean isRegistrationValid = true;
+                if (isRegistrationValid) {
+                    AppDatabase.users.add(new User(AppDatabase.userCount++, name, emailAddress, password));
+                    ;
+                    Toast.makeText(RegisterActivity.this, "Register succeded", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+                else {
+                    Toast.makeText(RegisterActivity.this, "Registration invalid!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

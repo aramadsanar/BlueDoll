@@ -26,7 +26,8 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".Profile" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".DollsListActivity"></activity>
+        <activity android:name=".DollsListActivity" />
+        <activity android:name=".EditDollActivity"></activity>
     </application>
 
 </manifest>

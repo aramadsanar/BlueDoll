@@ -11,25 +11,30 @@
     <EditText
         android:id="@+id/register_editName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Name"/>
     <EditText
         android:id="@+id/register_editEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        android:hint="Email Address"/>
     <EditText
         android:id="@+id/register_editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:hint="Password"/>
     <EditText
         android:id="@+id/register_editConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:hint="Confirm Password"/>
     <Button
         android:id="@+id/register_btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="REGISTER"/>
+        android:text="REGISTER"
+        />
 </LinearLayout>
