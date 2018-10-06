@@ -28,9 +28,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean checkForEmailExistence(String email) {
         for (User u : AppDatabase.users) {
-            if (u.email.equals(email)) return false;
+            if (u.email.equals(email)) return true;
         }
-        return true;
+        return false;
     }
 
     private boolean validatePassword(String password, String confirmPassword) {
@@ -78,8 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = register_editPassword.getText().toString();
                 String confirmPassword = register_editConfirmPassword.getText().toString();
 
-                //boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password);
-                boolean isRegistrationValid = true;
+                boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password);
+                //boolean isRegistrationValid = true;
                 if (isRegistrationValid) {
                     AppDatabase.users.add(new User(AppDatabase.userCount++, name, emailAddress, password));
                     ;

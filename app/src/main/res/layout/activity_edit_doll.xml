@@ -11,4 +11,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""/>
+    <EditText
+        android:id="@+id/edit_doll_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Doll Name"/>
+    <EditText
+        android:id="@+id/edit_doll_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"/>
+    <Spinner
+        android:id="@+id/edit_doll_image_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"/>
+    <Button
+        android:id="@+id/edit_doll_save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SAVE"/>
 </LinearLayout>

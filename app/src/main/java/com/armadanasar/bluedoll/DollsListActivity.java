@@ -34,7 +34,7 @@ public class DollsListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(DollsListActivity.this, EditDollActivity.class);
-                i.putExtra("doll", AppDatabase.dolls.get(position).name);
+                i.putExtra("doll_id", position);
 
                 startActivity(i);
             }
