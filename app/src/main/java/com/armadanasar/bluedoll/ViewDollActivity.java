@@ -32,5 +32,6 @@ public class ViewDollActivity extends AppCompatActivity {
         view_doll_doll_image.setImageResource(doll.imageResId);
         view_doll_doll_name.setText(doll.name);
         view_doll_doll_description.setText(doll.description);
+        setTitle(doll.name);
     }
 }

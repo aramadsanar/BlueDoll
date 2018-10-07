@@ -83,7 +83,10 @@ public class RegisterActivity extends AppCompatActivity {
         if (splitAt.length != 2) return false;
         else valid_email_domain = true;
 
-        String[] splitDomain = splitAt[1].split(".");
+        String domain = splitAt[1];
+        String[] splitDomain = domain.split("\\.");
+        int terms = 0;
+
         if (splitDomain.length < 2) return false;
         else valid_domain = true;
 
@@ -116,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailAddress = register_editEmail.getText().toString();
                 String password = register_editPassword.getText().toString();
                 String confirmPassword = register_editConfirmPassword.getText().toString();
-                boolean agreement = register_agreementCheckBox.isChecked(); 
+                boolean agreement = register_agreementCheckBox.isChecked();
 
                 boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password, agreement);
                 //boolean isRegistrationValid = true;
@@ -128,5 +131,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+        setTitle("Register");
     }
 }

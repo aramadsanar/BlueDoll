@@ -40,7 +40,7 @@ public class DollsListActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        setTitle("Our Dolls");
     }
 
     @Override
