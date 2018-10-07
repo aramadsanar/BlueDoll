@@ -23,6 +23,20 @@ public class MainActivity extends AppCompatActivity {
         AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, "Boneka Panda", "Boneka Panda Lucu", R.drawable.boneka_panda));
         AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, "Boneka Babi", "Boneka Babi Lucu", R.drawable.boneka_babi));
     }
+    private User authenticateUser(String emailAddress, String password) {
+        if (emailAddress.isEmpty() || password.isEmpty()) return null;
+
+        boolean userFound = false;
+        User currentUser = null;
+        for (User u : AppDatabase.users) {
+            if (u.email.equals(emailAddress) && u.password.equals(password)) {
+                userFound = true;
+                currentUser = u;
+            }
+        }
+
+        return currentUser;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initDollsDb();
@@ -41,17 +55,12 @@ public class MainActivity extends AppCompatActivity {
                 String password = editPassword.getText().toString();
                 //AppDatabase.users.add(new User(AppDatabase.userCount++, "", emailAddress, password));
                 boolean userFound = false;
-                User currentUser = null;
-                for (User u : AppDatabase.users) {
-                    if (u.email.equals(emailAddress) && u.password.equals(password)) {
-                        userFound = true;
-                        currentUser = u;
-                    }
-                }
+                User currentUser = authenticateUser(emailAddress, password);
 
-                if (userFound) {
+
+                if (currentUser != null) {
                     Intent intent = new Intent(MainActivity.this, DollsListActivity.class);
-                    intent.putExtra("username", emailAddress);
+                    intent.putExtra("username", currentUser.email);
                     intent.putExtra("name", currentUser.name);
 
                     startActivity(intent);

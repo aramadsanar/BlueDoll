@@ -1,12 +1,17 @@
 package com.armadanasar.bluedoll;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 
@@ -18,14 +23,14 @@ public class EditDollActivity extends AppCompatActivity {
     EditText edit_doll_description;
     Spinner edit_doll_image_spinner;
     Button edit_doll_save_button;
-
+    int curdolla = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_doll);
 
         final int current_doll = getIntent().getIntExtra("doll_id", -1);
-
+        curdolla = current_doll;
         curdoll = findViewById(R.id.curdoll);
         edit_doll_name = findViewById(R.id.edit_doll_name);
         edit_doll_description = findViewById(R.id.edit_doll_description);
@@ -59,5 +64,30 @@ public class EditDollActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.edit_dolls_activity_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        int k = 0;
+        switch(itemId) {
+            case R.id.edit_dolls_deleteDollMenu:
+                AppDatabase.dolls.remove(curdolla);
+                AppDatabase.dollCount--;
+
+                for (Doll d : AppDatabase.dolls) {
+                    d.id = k++;
+                }
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
