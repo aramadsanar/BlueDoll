@@ -7,11 +7,6 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_add_black_24dp"/>
     <item
-        android:id="@+id/dolls_list_editDollsMenu"
-        android:title="Edit Dolls"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_edit_black_24dp"/>
-    <item
         android:id="@+id/dolls_list_addLocationMenu"
         android:title="Add Location"
         app:showAsAction="always"

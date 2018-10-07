@@ -32,4 +32,10 @@ public class DollImageAdapter extends ArrayAdapter<Doll> {
 
         return convertView;
     }
+
+    @Override
+    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        return getView(position, convertView, parent);
+        //return super.getDropDownView(position, convertView, parent);
+    }
 }

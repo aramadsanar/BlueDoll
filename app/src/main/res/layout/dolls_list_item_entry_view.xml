@@ -31,5 +31,12 @@
             android:textSize="16sp"
             tools:text="Boneka Kucing Lucu"/>
 
+        <Button
+            android:id="@+id/dolls_list_item_editButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EDIT DOLL"
+            android:focusable="false"/>
     </LinearLayout>
+
 </RelativeLayout>

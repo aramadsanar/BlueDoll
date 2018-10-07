@@ -33,13 +33,20 @@ public class DollsListActivity extends AppCompatActivity {
         dolls_list_dolls_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(DollsListActivity.this, EditDollActivity.class);
+                //Toast.makeText(DollsListActivity.this, "masukj pak eko", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getBaseContext(), ViewDollActivity.class);
                 i.putExtra("doll_id", position);
 
                 startActivity(i);
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dolls_list_dolls_list_view.invalidateViews();
     }
 
     @Override
@@ -56,10 +63,9 @@ public class DollsListActivity extends AppCompatActivity {
 
         switch(itemId) {
             case R.id.dolls_list_addDollsMenu:
-                Toast.makeText(this, "add dolls", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.dolls_list_editDollsMenu:
-                Toast.makeText(this, "edit dolls", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(DollsListActivity.this, EditDollActivity.class);
+                i.putExtra("doll_id", -1);
+                startActivity(i);
                 break;
             case R.id.dolls_list_addLocationMenu:
                 Toast.makeText(this, "add doll location", Toast.LENGTH_SHORT).show();

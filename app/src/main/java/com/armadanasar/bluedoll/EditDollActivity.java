@@ -24,7 +24,8 @@ public class EditDollActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_doll);
 
-        final int current_doll = getIntent().getIntExtra("doll_id", 0);
+        final int current_doll = getIntent().getIntExtra("doll_id", -1);
+
         curdoll = findViewById(R.id.curdoll);
         edit_doll_name = findViewById(R.id.edit_doll_name);
         edit_doll_description = findViewById(R.id.edit_doll_description);
@@ -48,16 +49,15 @@ public class EditDollActivity extends AppCompatActivity {
                     Doll doll = AppDatabase.dolls.get(current_doll);
                     doll.name = dollName;
                     doll.description = description;
-                    doll.imageResId = imageId;
+                    doll.imageResId = AppDatabase.dolls.get(imageId).imageResId;
                 }
 
                 else {
                     //add it
                     AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, dollName, description, imageId));
                 }
+                finish();
             }
         });
-
-//        curdoll.setText(current_doll);
     }
 }

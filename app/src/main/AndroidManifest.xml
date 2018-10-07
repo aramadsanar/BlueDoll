@@ -27,7 +27,8 @@
         <activity android:name=".Profile" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".DollsListActivity" />
-        <activity android:name=".EditDollActivity"></activity>
+        <activity android:name=".EditDollActivity" />
+        <activity android:name=".ViewDollActivity"></activity>
     </application>
 
 </manifest>

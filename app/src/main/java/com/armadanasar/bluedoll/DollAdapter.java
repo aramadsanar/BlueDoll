@@ -1,11 +1,13 @@
 package com.armadanasar.bluedoll;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class DollAdapter extends ArrayAdapter<Doll>{
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         Doll doll = getItem(position);
+        final int index = position;
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.dolls_list_item_entry_view, parent, false);
@@ -32,11 +35,19 @@ public class DollAdapter extends ArrayAdapter<Doll>{
         TextView dolls_list_item_dollName = convertView.findViewById(R.id.dolls_list_item_dollName);
         TextView dolls_list_item_dollDescription = convertView.findViewById(R.id.dolls_list_item_dollDescription);
         ImageView dolls_list_item_dollImage = convertView.findViewById(R.id.dolls_list_item_dollImage);
+        Button dolls_list_item_editButton = convertView.findViewById(R.id.dolls_list_item_editButton);
 
         dolls_list_item_dollName.setText(doll.name);
         dolls_list_item_dollDescription.setText(doll.description);
         dolls_list_item_dollImage.setImageResource(doll.imageResId);
-
+        dolls_list_item_editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), EditDollActivity.class);
+                i.putExtra("doll_id", index);
+                getContext().startActivity(i);
+            }
+        });
         return convertView;
     }
 }

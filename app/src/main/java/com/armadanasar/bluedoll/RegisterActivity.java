@@ -78,8 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = register_editPassword.getText().toString();
                 String confirmPassword = register_editConfirmPassword.getText().toString();
 
-                boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password);
-                //boolean isRegistrationValid = true;
+                //boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password);
+                boolean isRegistrationValid = true;
                 if (isRegistrationValid) {
                     AppDatabase.users.add(new User(AppDatabase.userCount++, name, emailAddress, password));
                     ;
