@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,15 +16,35 @@ public class RegisterActivity extends AppCompatActivity {
     EditText register_editPassword;
     EditText register_editConfirmPassword;
     Button register_btnRegister;
-
-    private boolean validateRegistration(String name, String email, String password, String confirmPassword) {
+    CheckBox register_agreementCheckBox;
+    private boolean validateRegistration(String name, String email, String password, String confirmPassword, boolean agreement) {
         boolean isNameValid = validateName(name);
         boolean isEmailValid = validateEmail(email);
         boolean isPasswordValid = validatePassword(password, confirmPassword);
         boolean emailExists = checkForEmailExistence(email);
 
 
-        return (isNameValid && isEmailValid && isPasswordValid && !emailExists);
+        if (!isEmailValid) {
+            Toast.makeText(this, "Name length shal be > 0", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!isEmailValid) {
+            Toast.makeText(this, "Email address error", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!isPasswordValid) {
+            Toast.makeText(this, "Password is invalid", Toast.LENGTH_SHORT).show();
+        }
+
+        if (emailExists) {
+            Toast.makeText(this, "Email is taken already", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!agreement) {
+            Toast.makeText(this, "You need to agree to the terms", Toast.LENGTH_SHORT).show();
+        }
+
+        return (isNameValid && isEmailValid && isPasswordValid && !emailExists && agreement);
     }
 
     private boolean checkForEmailExistence(String email) {
@@ -34,21 +55,39 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword(String password, String confirmPassword) {
-        return (
-            password.length() >= 6 &&
-            password.matches("([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*") &&
-            password.equals(confirmPassword)
-        );
+        if (password.length() < 6 || !password.equals(confirmPassword)) return false;
+
+        int huruf = 0;
+        int angka = 0;
+
+
+        for (int i = 0; i < password.length(); i++) {
+            if (
+                    (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') ||
+                    (password.charAt(i) >= 'a' && password.charAt(i) <= 'z')
+               ) {
+                huruf++;
+            }
+
+            if (password.charAt(i) >= '0' && password.charAt(i) <= '9') angka++;
+        }
+
+        if (huruf >= 1 && angka >= 1) return true;
+        return false;
     }
 
     private boolean validateEmail(String email) {
+        boolean valid_email_domain = false;
+        boolean valid_domain = false;
         String[] splitAt = email.split("@");
         if (splitAt.length != 2) return false;
+        else valid_email_domain = true;
 
         String[] splitDomain = splitAt[1].split(".");
-        if (splitAt.length < 2) return false;
+        if (splitDomain.length < 2) return false;
+        else valid_domain = true;
 
-        return true;
+        return valid_domain && valid_email_domain;
     }
 
     private boolean validateName(String name) {
@@ -67,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
         register_editPassword = findViewById(R.id.register_editPassword);
         register_editConfirmPassword = findViewById(R.id.register_editConfirmPassword);
         register_btnRegister = findViewById(R.id.register_btnRegister);
-
+        register_agreementCheckBox = findViewById(R.id.register_agreementCheckBox);
 
 
         register_btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -77,18 +116,15 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailAddress = register_editEmail.getText().toString();
                 String password = register_editPassword.getText().toString();
                 String confirmPassword = register_editConfirmPassword.getText().toString();
+                boolean agreement = register_agreementCheckBox.isChecked(); 
 
-                //boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password);
-                boolean isRegistrationValid = true;
+                boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password, agreement);
+                //boolean isRegistrationValid = true;
                 if (isRegistrationValid) {
                     AppDatabase.users.add(new User(AppDatabase.userCount++, name, emailAddress, password));
-                    ;
+
                     Toast.makeText(RegisterActivity.this, "Register succeded", Toast.LENGTH_SHORT).show();
                     finish();
-                }
-
-                else {
-                    Toast.makeText(RegisterActivity.this, "Registration invalid!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

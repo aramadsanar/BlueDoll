@@ -37,4 +37,9 @@
         android:layout_height="wrap_content"
         android:text="REGISTER"
         />
+    <CheckBox
+        android:id="@+id/register_agreementCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I agree to the terms of this app"/>
 </LinearLayout>
