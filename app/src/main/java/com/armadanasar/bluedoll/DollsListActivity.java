@@ -68,7 +68,12 @@ public class DollsListActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
             case R.id.dolls_list_addLocationMenu:
-                Toast.makeText(this, "add doll location", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "add doll location", Toast.LENGTH_SHORT).show();
+                Intent x = new Intent(DollsListActivity.this, AddDollLocationMap.class);
+                startActivity(x);
+                break;
+            case R.id.dolls_list_logoutMenu:
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
