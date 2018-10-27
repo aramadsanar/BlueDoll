@@ -9,13 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText editEmailAddress;
     EditText editPassword;
     Button btnLogin;
-    Button btnRegister;
+    TextView btnRegister;
 
     private void initDollsDb() {
         AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, "Boneka Kucing", "Boneka Kucing Lucu", R.drawable.boneka_kucing));
@@ -26,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
     private User authenticateUser(String emailAddress, String password) {
         if (emailAddress.isEmpty() || password.isEmpty()) return null;
 
-        boolean userFound = false;
+        //boolean userFound = false;
         User currentUser = null;
         for (User u : AppDatabase.users) {
             if (u.email.equals(emailAddress) && u.password.equals(password)) {
-                userFound = true;
+                //userFound = true;
                 currentUser = u;
             }
         }

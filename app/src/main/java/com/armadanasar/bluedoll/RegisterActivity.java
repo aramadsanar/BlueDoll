@@ -111,7 +111,6 @@ public class RegisterActivity extends AppCompatActivity {
         register_btnRegister = findViewById(R.id.register_btnRegister);
         register_agreementCheckBox = findViewById(R.id.register_agreementCheckBox);
 
-
         register_btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,8 +9,8 @@
     android:layout_margin="8dp">
     <ImageView
         android:id="@+id/view_doll_doll_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/view_doll_doll_name"

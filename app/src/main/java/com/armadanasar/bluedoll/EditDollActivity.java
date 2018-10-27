@@ -64,7 +64,11 @@ public class EditDollActivity extends AppCompatActivity {
                 finish();
             }
         });
-        setTitle("Edit Doll");
+
+        if (current_doll > -1)
+            setTitle("Edit Doll");
+        else
+            setTitle("Add Doll");
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

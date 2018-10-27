@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ public class DollAdapter extends ArrayAdapter<Doll>{
         TextView dolls_list_item_dollDescription = convertView.findViewById(R.id.dolls_list_item_dollDescription);
         ImageView dolls_list_item_dollImage = convertView.findViewById(R.id.dolls_list_item_dollImage);
         Button dolls_list_item_editButton = convertView.findViewById(R.id.dolls_list_item_editButton);
+        Button dolls_list_item_viewButton = convertView.findViewById(R.id.dolls_list_item_viewButton);
 
         dolls_list_item_dollName.setText(doll.name);
         dolls_list_item_dollDescription.setText(doll.description);
@@ -48,6 +50,18 @@ public class DollAdapter extends ArrayAdapter<Doll>{
                 getContext().startActivity(i);
             }
         });
+
+        dolls_list_item_viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(DollsListActivity.this, "masukj pak eko", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getContext(), ViewDollActivity.class);
+                i.putExtra("doll_id", index);
+
+                getContext().startActivity(i);
+            }
+        });
+
         return convertView;
     }
 }

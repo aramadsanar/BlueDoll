@@ -11,4 +11,9 @@
         android:title="Add Location"
         app:showAsAction="always"
         android:icon="@drawable/ic_add_location_black_24dp"/>
+    <item
+        android:id="@+id/dolls_list_logoutMenu"
+        android:title="Add Location"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"/>
 </menu>
