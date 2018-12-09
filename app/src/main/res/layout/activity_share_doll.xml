@@ -26,5 +26,6 @@
         android:id="@+id/share_doll_sendSMS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SHARE"/>
+        android:text="SHARE"
+        android:layout_margin="8dp"/>
 </LinearLayout>
