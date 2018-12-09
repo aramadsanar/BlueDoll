@@ -2,13 +2,24 @@ package com.armadanasar.bluedoll;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class AddDollLocationMap extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,9 +49,47 @@ public class AddDollLocationMap extends FragmentActivity implements OnMapReadyCa
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        String url ="http://api.myjson.com/bins/g616s";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        try {
+                            Log.d("hasil download", response);
+                            JSONObject root = new JSONObject(response);
+
+                            JSONArray markersArray = root.getJSONArray("markers");
+
+                            for (int i = 0; i < markersArray.length(); i++) {
+                                JSONObject item = markersArray.getJSONObject(i);
+
+                                String locationName = item.getString("name");
+                                JSONObject locationDetail = item.getJSONObject("location");
+                                double locationLat = locationDetail.getDouble("lat");
+                                double locationLng = locationDetail.getDouble("lng");
+
+                                LatLng locationMarker = new LatLng(locationLat, locationLng);
+                                mMap.addMarker(new MarkerOptions().position(locationMarker).title(locationName));
+                            }
+                        }
+                        catch (Exception ex) {
+                            Toast.makeText(AddDollLocationMap.this, "ga bisa load json", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(AddDollLocationMap.this, "Request failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(stringRequest);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-6.200865, 106.783346), 15.0f));
     }
 }

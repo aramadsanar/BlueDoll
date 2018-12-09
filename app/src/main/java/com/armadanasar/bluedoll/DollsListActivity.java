@@ -26,7 +26,7 @@ public class DollsListActivity extends AppCompatActivity {
         dolls_list_greeting = findViewById(R.id.dolls_list_greeting);
         dolls_list_dolls_list_view = findViewById(R.id.dolls_list_dolls_list_view);
 
-        Bundle paramsDictionary = getIntent().getExtras();
+        final Bundle paramsDictionary = getIntent().getExtras();
         dolls_list_greeting.setText("Hello, " + paramsDictionary.getString("name"));
 
         dolls_list_dolls_list_view.setAdapter(new DollAdapter(this, AppDatabase.dolls));
@@ -36,7 +36,7 @@ public class DollsListActivity extends AppCompatActivity {
                 //Toast.makeText(DollsListActivity.this, "masukj pak eko", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getBaseContext(), ViewDollActivity.class);
                 i.putExtra("doll_id", position);
-
+                i.putExtra("username", paramsDictionary.getString("name"));
                 startActivity(i);
             }
         });

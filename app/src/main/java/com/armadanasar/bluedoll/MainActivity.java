@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initDollsDb();
+//        Intent i = new Intent(MainActivity.this, AddDollLocationMap.class);
+//        startActivity(i);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
