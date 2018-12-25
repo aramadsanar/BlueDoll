@@ -17,11 +17,13 @@ public class DollsListActivity extends AppCompatActivity {
 
     TextView dolls_list_greeting;
     ListView dolls_list_dolls_list_view;
-
+    SQLiteDatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dolls_list);
+
+        dbHelper = new SQLiteDatabaseHelper(this);
 
         dolls_list_greeting = findViewById(R.id.dolls_list_greeting);
         dolls_list_dolls_list_view = findViewById(R.id.dolls_list_dolls_list_view);
@@ -29,7 +31,7 @@ public class DollsListActivity extends AppCompatActivity {
         final Bundle paramsDictionary = getIntent().getExtras();
         dolls_list_greeting.setText("Hello, " + paramsDictionary.getString("name"));
 
-        dolls_list_dolls_list_view.setAdapter(new DollAdapter(this, AppDatabase.dolls));
+        dolls_list_dolls_list_view.setAdapter(new DollAdapter(this, dbHelper.getAllDolls()));
         dolls_list_dolls_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

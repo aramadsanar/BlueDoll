@@ -24,6 +24,8 @@ public class EditDollActivity extends AppCompatActivity {
     Spinner edit_doll_image_spinner;
     Button edit_doll_save_button;
     int curdolla = -1;
+    SQLiteDatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +38,10 @@ public class EditDollActivity extends AppCompatActivity {
         edit_doll_description = findViewById(R.id.edit_doll_description);
         edit_doll_image_spinner = findViewById(R.id.edit_doll_image_spinner);
         edit_doll_save_button = findViewById(R.id.edit_doll_save_button);
+        dbHelper = new SQLiteDatabaseHelper(this);
 
-
-        DollImageAdapter dollImageAdapter = new DollImageAdapter(this, AppDatabase.dolls);
+        //DollImageAdapter dollImageAdapter = new DollImageAdapter(this, AppDatabase.dolls);
+        final DollImageAdapter dollImageAdapter = new DollImageAdapter(this, dbHelper.getAllDolls());
         dollImageAdapter.setDropDownViewResource(R.layout.image_spinner_item);
         edit_doll_image_spinner.setAdapter(dollImageAdapter);
 
@@ -51,15 +54,20 @@ public class EditDollActivity extends AppCompatActivity {
 
                 if (current_doll > -1) {
                     //save it
-                    Doll doll = AppDatabase.dolls.get(current_doll);
+                    //Doll doll = AppDatabase.dolls.get(current_doll);
+
+                    Doll doll = dbHelper.getSingleDollById(current_doll);
                     doll.name = dollName;
                     doll.description = description;
-                    doll.imageResId = AppDatabase.dolls.get(imageId).imageResId;
+                    //doll.imageResId = AppDatabase.dolls.get(imageId).imageResId;
+                    doll.imageResId = dollImageAdapter.getItem(imageId).imageResId;
+
                 }
 
                 else {
                     //add it
-                    AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, dollName, description, imageId));
+                    //AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, dollName, description, imageId));
+                    dbHelper.putDoll(new Doll(-1, dollName, description, imageId));
                 }
                 finish();
             }

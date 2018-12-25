@@ -17,6 +17,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText register_editConfirmPassword;
     Button register_btnRegister;
     CheckBox register_agreementCheckBox;
+    SQLiteDatabaseHelper dbHelper;
+
     private boolean validateRegistration(String name, String email, String password, String confirmPassword, boolean agreement) {
         boolean isNameValid = validateName(name);
         boolean isEmailValid = validateEmail(email);
@@ -48,10 +50,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean checkForEmailExistence(String email) {
-        for (User u : AppDatabase.users) {
-            if (u.email.equals(email)) return true;
-        }
-        return false;
+        return dbHelper.checkUserExistence(email);
+//        for (User u : AppDatabase.users) {
+//            if (u.email.equals(email)) return true;
+//        }
+//        return false;
     }
 
     private boolean validatePassword(String password, String confirmPassword) {
@@ -110,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
         register_editConfirmPassword = findViewById(R.id.register_editConfirmPassword);
         register_btnRegister = findViewById(R.id.register_btnRegister);
         register_agreementCheckBox = findViewById(R.id.register_agreementCheckBox);
+        dbHelper = new SQLiteDatabaseHelper(this);
 
         register_btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,8 +127,8 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean isRegistrationValid = validateRegistration(name, emailAddress, password, password, agreement);
                 //boolean isRegistrationValid = true;
                 if (isRegistrationValid) {
-                    AppDatabase.users.add(new User(AppDatabase.userCount++, name, emailAddress, password));
-
+                    //AppDatabase.users.add(new User(AppDatabase.userCount++, name, emailAddress, password));
+                    dbHelper.registerUser(new User(-1, name, emailAddress, password));
                     Toast.makeText(RegisterActivity.this, "Register succeded", Toast.LENGTH_SHORT).show();
                     finish();
                 }

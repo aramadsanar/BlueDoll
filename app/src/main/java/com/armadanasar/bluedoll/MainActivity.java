@@ -17,13 +17,14 @@ public class MainActivity extends AppCompatActivity {
     EditText editPassword;
     Button btnLogin;
     TextView btnRegister;
+    SQLiteDatabaseHelper dbHelper;
 
-    private void initDollsDb() {
-        AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, "Boneka Kucing", "Boneka Kucing Lucu", R.drawable.boneka_kucing));
-        AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, "Boneka Rusa", "Boneka Rusa Lucu", R.drawable.boneka_rusa));
-        AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, "Boneka Panda", "Boneka Panda Lucu", R.drawable.boneka_panda));
-        AppDatabase.dolls.add(new Doll(AppDatabase.dollCount++, "Boneka Babi", "Boneka Babi Lucu", R.drawable.boneka_babi));
-    }
+//    private void initDollsDb() {
+//        AppDatabase.dolls.add(new Doll(-1, "Boneka Kucing", "Boneka Kucing Lucu", R.drawable.boneka_kucing));
+//        AppDatabase.dolls.add(new Doll(-1, "Boneka Rusa", "Boneka Rusa Lucu", R.drawable.boneka_rusa));
+//        AppDatabase.dolls.add(new Doll(-1, "Boneka Panda", "Boneka Panda Lucu", R.drawable.boneka_panda));
+//        AppDatabase.dolls.add(new Doll(-1, "Boneka Babi", "Boneka Babi Lucu", R.drawable.boneka_babi));
+//    }
     private User authenticateUser(String emailAddress, String password) {
         if (emailAddress.isEmpty() || password.isEmpty()) return null;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initDollsDb();
+        //initDollsDb();
 //        Intent i = new Intent(MainActivity.this, AddDollLocationMap.class);
 //        startActivity(i);
 
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
+        dbHelper = new SQLiteDatabaseHelper(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 String password = editPassword.getText().toString();
                 //AppDatabase.users.add(new User(AppDatabase.userCount++, "", emailAddress, password));
                 boolean userFound = false;
-                User currentUser = authenticateUser(emailAddress, password);
-
+                //User currentUser = authenticateUser(emailAddress, password);
+                User currentUser = dbHelper.authenticateUser(new User(-1, "", emailAddress, password));
 
                 if (currentUser != null) {
                     Intent intent = new Intent(MainActivity.this, DollsListActivity.class);

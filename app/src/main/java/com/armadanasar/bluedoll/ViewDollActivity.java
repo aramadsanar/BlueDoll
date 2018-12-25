@@ -17,6 +17,7 @@ public class ViewDollActivity extends AppCompatActivity {
     TextView view_doll_doll_description;
     String username;
     String dollName;
+    SQLiteDatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class ViewDollActivity extends AppCompatActivity {
         view_doll_doll_image = findViewById(R.id.view_doll_doll_image);
         view_doll_doll_name = findViewById(R.id.view_doll_doll_name);
         view_doll_doll_description = findViewById(R.id.view_doll_doll_description);
+        dbHelper = new SQLiteDatabaseHelper(this);
 
         int dollId = getIntent().getIntExtra("doll_id", -1);
         username = getIntent().getStringExtra("username");
@@ -34,7 +36,8 @@ public class ViewDollActivity extends AppCompatActivity {
 
         Log.d("id boneka", "" + dollId);
 
-        Doll doll = AppDatabase.dolls.get(dollId);
+        //Doll doll = AppDatabase.dolls.get(dollId);
+        Doll doll = dbHelper.getSingleDollById(dollId);
 
         view_doll_doll_image.setImageResource(doll.imageResId);
         view_doll_doll_name.setText(doll.name);
