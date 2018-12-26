@@ -45,8 +45,9 @@ public class DollAdapter extends ArrayAdapter<Doll>{
         dolls_list_item_editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Doll selectedDoll = getItem(index);
                 Intent i = new Intent(getContext(), EditDollActivity.class);
-                i.putExtra("doll_id", index);
+                i.putExtra("doll_id", selectedDoll.id);
                 getContext().startActivity(i);
             }
         });
@@ -55,8 +56,9 @@ public class DollAdapter extends ArrayAdapter<Doll>{
             @Override
             public void onClick(View v) {
                 //Toast.makeText(DollsListActivity.this, "masukj pak eko", Toast.LENGTH_SHORT).show();
+                Doll selectedDoll = getItem(index);
                 Intent i = new Intent(getContext(), ViewDollActivity.class);
-                i.putExtra("doll_id", index);
+                i.putExtra("doll_id", selectedDoll.id);
 
                 getContext().startActivity(i);
             }

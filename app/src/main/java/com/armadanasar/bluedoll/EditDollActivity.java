@@ -62,6 +62,8 @@ public class EditDollActivity extends AppCompatActivity {
                     //doll.imageResId = AppDatabase.dolls.get(imageId).imageResId;
                     doll.imageResId = dollImageAdapter.getItem(imageId).imageResId;
 
+                    dbHelper.updateDoll(doll);
+
                 }
 
                 else {
