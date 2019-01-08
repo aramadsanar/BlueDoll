@@ -187,7 +187,7 @@ public class SQLiteDatabaseHelper  extends SQLiteOpenHelper {
         Cursor cursor  = database.rawQuery("SELECT * FROM " + DOLL_TABLE_NAME, null);
 
         if (cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+            do {
                 result.add(
                         new Doll(
                             cursor.getInt(
@@ -204,7 +204,7 @@ public class SQLiteDatabaseHelper  extends SQLiteOpenHelper {
                             )
                         )
                 );
-            }
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
